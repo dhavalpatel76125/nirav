@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>India Creator Analytics</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['Syne', 'sans-serif'],
+          mono: ['Space Mono', 'monospace'],
+        },
+        colors: {
+          bg: '#0a0a0f',
+          surface: '#111118',
+          card: '#16161f',
+          border: '#1e1e2e',
+          tanmay: '#a78bfa',
+          ranveer: '#34d399',
+          samay: '#fb923c',
+          raj: '#38bdf8',
+          pos: '#4ade80',
+          neg: '#f87171',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { background: #0a0a0f; }
+  .glow-tanmay { box-shadow: 0 0 20px rgba(167,139,250,0.15); }
+  .glow-ranveer { box-shadow: 0 0 20px rgba(52,211,153,0.15); }
+  .glow-samay   { box-shadow: 0 0 20px rgba(251,146,60,0.15); }
+  .glow-raj     { box-shadow: 0 0 20px rgba(56,189,248,0.15); }
+  .bar-fill { transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  .fade-up { animation: fadeUp 0.6s ease both; }
+  .fade-up-1 { animation-delay: 0.1s; }
+  .fade-up-2 { animation-delay: 0.2s; }
+  .fade-up-3 { animation-delay: 0.3s; }
+  .fade-up-4 { animation-delay: 0.4s; }
+  .fade-up-5 { animation-delay: 0.5s; }
+  .noise {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+  .grid-bg {
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .tab-btn.active { background: #1e1e2e; color: white; }
+  .tab-btn { transition: all 0.2s; }
+  .section { display: none; }
+  .section.active { display: block; }
+</style>
+</head>
+<body class="text-white font-display min-h-screen grid-bg">
+<div class="noise"></div>
+
+<div class="relative z-10 max-w-7xl mx-auto px-6 py-10">
+
+  <!-- Header -->
+  <div class="fade-up mb-10">
+    <div class="flex items-start justify-between flex-wrap gap-4">
+      <div>
+        <p class="font-mono text-xs text-white/30 tracking-widest uppercase mb-2">India Creator Analytics · 2025</p>
+        <h1 class="text-4xl font-display font-800 text-white leading-tight">Creator <span class="text-transparent bg-clip-text bg-gradient-to-r from-tanmay via-ranveer to-raj">Influence</span> Dashboard</h1>
+        <p class="text-white/40 text-sm mt-2 font-mono">Comparing reach, net worth & national impact</p>
+      </div>
+      <div class="flex gap-2">
+        <span class="px-3 py-1 rounded-full border border-border text-xs font-mono text-white/40">Est. Data</span>
+        <span class="px-3 py-1 rounded-full border border-pos/30 bg-pos/5 text-xs font-mono text-pos">Live 2025</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Creator Cards -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 fade-up fade-up-1">
+    <!-- Tanmay -->
+    <div class="bg-card border border-border rounded-2xl p-5 glow-tanmay hover:border-tanmay/40 transition-all duration-300">
+      <div class="w-12 h-12 rounded-xl bg-tanmay/10 border border-tanmay/20 flex items-center justify-center mb-4">
+        <span class="text-tanmay font-mono font-bold text-sm">TB</span>
+      </div>
+      <h3 class="font-display font-700 text-white text-base mb-0.5">Tanmay Bhatt</h3>
+      <p class="text-white/40 text-xs font-mono mb-3">Comedian · Streamer · AIB</p>
+      <div class="flex flex-wrap gap-1">
+        <span class="px-2 py-0.5 rounded-full bg-tanmay/10 text-tanmay text-xs">Comedy</span>
+        <span class="px-2 py-0.5 rounded-full bg-white/5 text-white/40 text-xs">Gaming</span>
+      </div>
+    </div>
+    <!-- Ranveer -->
+    <div class="bg-card border border-border rounded-2xl p-5 glow-ranveer hover:border-ranveer/40 transition-all duration-300">
+      <div class="w-12 h-12 rounded-xl bg-ranveer/10 border border-ranveer/20 flex items-center justify-center mb-4">
+        <span class="text-ranveer font-mono font-bold text-sm">RA</span>
+      </div>
+      <h3 class="font-display font-700 text-white text-base mb-0.5">Ranveer Allahbadia</h3>
+      <p class="text-white/40 text-xs font-mono mb-3">BeerBiceps · Podcast Host</p>
+      <div class="flex flex-wrap gap-1">
+        <span class="px-2 py-0.5 rounded-full bg-ranveer/10 text-ranveer text-xs">Podcast</span>
+        <span class="px-2 py-0.5 rounded-full bg-white/5 text-white/40 text-xs">Fitness</span>
+      </div>
+    </div>
+    <!-- Samay -->
+    <div class="bg-card border border-border rounded-2xl p-5 glow-samay hover:border-samay/40 transition-all duration-300">
+      <div class="w-12 h-12 rounded-xl bg-samay/10 border border-samay/20 flex items-center justify-center mb-4">
+        <span class="text-samay font-mono font-bold text-sm">SR</span>
+      </div>
+      <h3 class="font-display font-700 text-white text-base mb-0.5">Samay Raina</h3>
+      <p class="text-white/40 text-xs font-mono mb-3">Comedian · Chess · IGL</p>
+      <div class="flex flex-wrap gap-1">
+        <span class="px-2 py-0.5 rounded-full bg-samay/10 text-samay text-xs">Comedy</span>
+        <span class="px-2 py-0.5 rounded-full bg-white/5 text-white/40 text-xs">Chess</span>
+      </div>
+    </div>
+    <!-- Raj -->
+    <div class="bg-card border border-border rounded-2xl p-5 glow-raj hover:border-raj/40 transition-all duration-300">
+      <div class="w-12 h-12 rounded-xl bg-raj/10 border border-raj/20 flex items-center justify-center mb-4">
+        <span class="text-raj font-mono font-bold text-sm">RS</span>
+      </div>
+      <h3 class="font-display font-700 text-white text-base mb-0.5">Raj Shamani</h3>
+      <p class="text-white/40 text-xs font-mono mb-3">Entrepreneur · Speaker</p>
+      <div class="flex flex-wrap gap-1">
+        <span class="px-2 py-0.5 rounded-full bg-raj/10 text-raj text-xs">Business</span>
+        <span class="px-2 py-0.5 rounded-full bg-white/5 text-white/40 text-xs">Finance</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stat Row -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 fade-up fade-up-2">
+    <div class="bg-card border border-border rounded-xl p-4">
+      <p class="text-white/30 text-xs font-mono uppercase tracking-widest mb-1">Net Worth</p>
+      <p class="text-tanmay text-2xl font-display font-700">₹45 Cr</p>
+      <p class="text-white/30 text-xs font-mono mt-1">Tanmay Bhatt</p>
+    </div>
+    <div class="bg-card border border-border rounded-xl p-4">
+      <p class="text-white/30 text-xs font-mono uppercase tracking-widest mb-1">Net Worth</p>
+      <p class="text-ranveer text-2xl font-display font-700">₹130 Cr</p>
+      <p class="text-white/30 text-xs font-mono mt-1">Ranveer Allahbadia</p>
+    </div>
+    <div class="bg-card border border-border rounded-xl p-4">
+      <p class="text-white/30 text-xs font-mono uppercase tracking-widest mb-1">Net Worth</p>
+      <p class="text-samay text-2xl font-display font-700">₹25 Cr</p>
+      <p class="text-white/30 text-xs font-mono mt-1">Samay Raina</p>
+    </div>
+    <div class="bg-card border border-border rounded-xl p-4">
+      <p class="text-white/30 text-xs font-mono uppercase tracking-widest mb-1">Net Worth</p>
+      <p class="text-raj text-2xl font-display font-700">₹40 Cr</p>
+      <p class="text-white/30 text-xs font-mono mt-1">Raj Shamani</p>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="flex gap-2 mb-6 fade-up fade-up-3 flex-wrap">
+    <button class="tab-btn active px-4 py-2 rounded-lg text-sm font-mono text-white/60 hover:text-white" onclick="switchTab('followers')">Followers</button>
+    <button class="tab-btn px-4 py-2 rounded-lg text-sm font-mono text-white/60 hover:text-white" onclick="switchTab('influence')">Influence Score</button>
+    <button class="tab-btn px-4 py-2 rounded-lg text-sm font-mono text-white/60 hover:text-white" onclick="switchTab('impact')">Country Impact</button>
+    <button class="tab-btn px-4 py-2 rounded-lg text-sm font-mono text-white/60 hover:text-white" onclick="switchTab('platform')">Platform Split</button>
+  </div>
+
+  <!-- Tab: Followers -->
+  <div id="tab-followers" class="section active fade-up fade-up-4">
+    <div class="grid lg:grid-cols-2 gap-6">
+      <div class="bg-card border border-border rounded-2xl p-6">
+        <p class="text-white/30 text-xs font-mono uppercase tracking-widest mb-6">Total follower comparison</p>
+        <div class="space-y-5">
+          <div>
+            <div class="flex justify-between mb-1.5">
+              <span class="text-tanmay font-display font-600 text-sm">Tanmay Bhatt</span>
+              <span class="text-white/40 font-mono text-xs">4.2 M</span>
+            </div>
+            <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full bg-tanmay rounded-full bar-fill" style="width:32%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1.5">
+              <span class="text-ranveer font-display font-600 text-sm">Ranveer Allahbadia</span>
+              <span class="text-white/40 font-mono text-xs">13.0 M</span>
+            </div>
+            <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full bg-ranveer rounded-full bar-fill" style="width:100%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1.5">
+              <span class="text-samay font-display font-600 text-sm">Samay Raina</span>
+              <span class="text-white/40 font-mono text-xs">6.4 M</span>
+            </div>
+            <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full bg-samay rounded-full bar-fill" style="width:49%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1.5">
+              <span class="text-raj font-display font-600 text-sm">Raj Shamani</span>
+              <span class="text-white/40 font-mono text-xs">6.0 M</span>
+            </div>
+            <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full bg-raj rounded-full bar-fill" style="width:46%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-card border border-border rounded-2xl p-6">
+        <p class="text-white/30 text-xs font-mono uppercase tracking-widest mb-4">Platform distribution</p>
+        <div style="position:relative;height:240px;">
+          <canvas id="followerChart" role="img" aria-label="Bar chart comparing YouTube and Instagram followers for 4 creators"></canvas>
+        </div>
+        <div class="flex flex-wrap gap-4 mt-4 justify-center">
+          <span class="flex items-center gap-2 text-xs font-mono text-white/40"><span class="w-3 h-3 rounded-sm" style="background:#a78bfa"></span>YouTube</span>
+          <span class="flex items-center gap-2 text-xs font-mono text-white/40"><span class="w-3 h-3 rounded-sm" style="background:#34d399"></span>Instagram</span>
+          <span class="flex items-center gap-2 text-xs font-mono text-white/40"><span class="w-3 h-3 rounded-sm" style="background:#38bdf8"></span>Twitter/X</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Influence Score -->
+  <div id="tab-influence" class="section fade-up fade-up-4">
+    <div class="grid lg:grid-cols-2 gap-6">
+      <div class="bg-card border border-border rounded-2xl p-6">
+        <p class="text-white/30 text-xs font-mono uppercase tracking-widest mb-6">Influence score / 100</p>
+        <div class="space-y-6">
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-tanmay font-display font-600 text-sm">Tanmay Bhatt</span>
+              <span class="text-tanmay font-mono font-bold text-lg">72</span>
+            </div>
+            <div class="h-3 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full rounded-full bar-fill" style="width:72%;background:linear-gradient(90deg,#a78bfa,#7c3aed)"></div>
+            </div>
+            <p class="text-white/30 text-xs font-mono mt-1.5">Pioneer · Moderate Reach · Cultural Impact</p>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-ranveer font-display font-600 text-sm">Ranveer Allahbadia</span>
+              <span class="text-ranveer font-mono font-bold text-lg">91</span>
+            </div>
+            <div class="h-3 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full rounded-full bar-fill" style="width:91%;background:linear-gradient(90deg,#34d399,#059669)"></div>
+            </div>
+            <p class="text-white/30 text-xs font-mono mt-1.5">Top Reach · Global Podcast · Massive Presence</p>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-samay font-display font-600 text-sm">Samay Raina</span>
+              <span class="text-samay font-mono font-bold text-lg">78</span>
+            </div>
+            <div class="h-3 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full rounded-full bar-fill" style="width:78%;background:linear-gradient(90deg,#fb923c,#ea580c)"></div>
+            </div>
+            <p class="text-white/30 text-xs font-mono mt-1.5">Rising Star · Cult Following · Viral Shows</p>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-raj font-display font-600 text-sm">Raj Shamani</span>
+              <span class="text-raj font-mono font-bold text-lg">68</span>
+            </div>
+            <div class="h-3 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full rounded-full bar-fill" style="width:68%;background:linear-gradient(90deg,#38bdf8,#0284c7)"></div>
+            </div>
+            <p class="text-white/30 text-xs font-mono mt-1.5">Niche Depth · Business Audience · Steady Growth</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-card border border-border rounded-2xl p-6">
+        <p class="text-white/30 text-xs font-mono uppercase tracking-widest mb-4">Radar: multi-dimension influence</p>
+        <div style="position:relative;height:280px;">
+          <canvas id="radarChart" role="img" aria-label="Radar chart showing multi-dimensional influence of 4 creators"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Country Impact -->
+  <div id="tab-impact" class="section fade-up fade-up-4">
+    <div class="grid lg:grid-cols-2 gap-6">
+      <!-- Pos/Neg Balance -->
+      <div class="bg-card border border-border rounded-2xl p-6">
+        <p class="text-white/30 text-xs font-mono uppercase tracking-widest mb-6">Positive vs negative impact balance</p>
+        <div class="space-y-5">
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-white font-display text-sm">Tanmay Bhatt</span>
+              <span class="text-white/30 font-mono text-xs">+70% / -30%</span>
+            </div>
+            <div class="h-4 bg-white/5 rounded-full overflow-hidden flex">
+              <div class="h-full bg-pos rounded-l-full transition-all" style="width:70%"></div>
+              <div class="h-full bg-neg rounded-r-full transition-all" style="width:30%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-white font-display text-sm">Ranveer Allahbadia</span>
+              <span class="text-white/30 font-mono text-xs">+55% / -45%</span>
+            </div>
+            <div class="h-4 bg-white/5 rounded-full overflow-hidden flex">
+              <div class="h-full bg-pos rounded-l-full" style="width:55%"></div>
+              <div class="h-full bg-neg rounded-r-full" style="width:45%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-white font-display text-sm">Samay Raina</span>
+              <span class="text-white/30 font-mono text-xs">+65% / -35%</span>
+            </div>
+            <div class="h-4 bg-white/5 rounded-full overflow-hidden flex">
+              <div class="h-full bg-pos rounded-l-full" style="width:65%"></div>
+              <div class="h-full bg-neg rounded-r-full" style="width:35%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-white font-display text-sm">Raj Shamani</span>
+              <span class="text-white/30 font-mono text-xs">+75% / -25%</span>
+            </div>
+            <div class="h-4 bg-white/5 rounded-full overflow-hidden flex">
+              <div class="h-full bg-pos rounded-l-full" style="width:75%"></div>
+              <div class="h-full bg-neg rounded-r-full" style="width:25%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-6 mt-6 pt-4 border-t border-border">
+          <span class="flex items-center gap-2 text-xs font-mono text-white/40"><span class="w-3 h-3 rounded-sm bg-pos"></span>Positive</span>
+          <span class="flex items-center gap-2 text-xs font-mono text-white/40"><span class="w-3 h-3 rounded-sm bg-neg"></span>Negative</span>
+        </div>
+      </div>
+
+      <!-- Impact Cards -->
+      <div class="space-y-4">
+        <div class="bg-card border border-border rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-tanmay font-display font-600 text-sm">Tanmay Bhatt</span>
+            <span class="px-2 py-0.5 rounded-full bg-tanmay/10 text-tanmay text-xs font-mono">Net +ve</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-pos/5 border border-pos/10 rounded-xl p-3">
+              <p class="text-pos text-xs font-mono mb-1">Positive</p>
+              <p class="text-white/60 text-xs leading-relaxed">Mental health advocacy, pioneered Indian YouTube comedy, open depression dialogue</p>
+            </div>
+            <div class="bg-neg/5 border border-neg/10 rounded-xl p-3">
+              <p class="text-neg text-xs font-mono mb-1">Negative</p>
+              <p class="text-white/60 text-xs leading-relaxed">AIB roast controversy, past offensive humor, brand fallout</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-card border border-border rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-ranveer font-display font-600 text-sm">Ranveer Allahbadia</span>
+            <span class="px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-400 text-xs font-mono">Controversial</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-pos/5 border border-pos/10 rounded-xl p-3">
+              <p class="text-pos text-xs font-mono mb-1">Positive</p>
+              <p class="text-white/60 text-xs leading-relaxed">Brought global podcast culture, fitness movement, entrepreneurship inspiration</p>
+            </div>
+            <div class="bg-neg/5 border border-neg/10 rounded-xl p-3">
+              <p class="text-neg text-xs font-mono mb-1">Negative</p>
+              <p class="text-white/60 text-xs leading-relaxed">IGL obscene content, pseudoscience promotion, misleading spirituality</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-6 mt-6">
+      <div class="bg-card border border-border rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-samay font-display font-600 text-sm">Samay Raina</span>
+          <span class="px-2 py-0.5 rounded-full bg-samay/10 text-samay text-xs font-mono">Net +ve</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-pos/5 border border-pos/10 rounded-xl p-3">
+            <p class="text-pos text-xs font-mono mb-1">Positive</p>
+            <p class="text-white/60 text-xs leading-relaxed">Popularized chess among youth, boosted indie comedians, authentic regional voice</p>
+          </div>
+          <div class="bg-neg/5 border border-neg/10 rounded-xl p-3">
+            <p class="text-neg text-xs font-mono mb-1">Negative</p>
+            <p class="text-white/60 text-xs leading-relaxed">IGL content reached minors, dark humor without age gating raised concerns</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-card border border-border rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-raj font-display font-600 text-sm">Raj Shamani</span>
+          <span class="px-2 py-0.5 rounded-full bg-pos/10 text-pos text-xs font-mono">Most +ve</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-pos/5 border border-pos/10 rounded-xl p-3">
+            <p class="text-pos text-xs font-mono mb-1">Positive</p>
+            <p class="text-white/60 text-xs leading-relaxed">Business education for Tier 2/3 cities, financial literacy, startup culture</p>
+          </div>
+          <div class="bg-neg/5 border border-neg/10 rounded-xl p-3">
+            <p class="text-neg text-xs font-mono mb-1">Negative</p>
+            <p class="text-white/60 text-xs leading-relaxed">Hustle culture glorification, oversimplified success narratives, burnout risk</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Platform Split -->
+  <div id="tab-platform" class="section fade-up fade-up-4">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-card border border-tanmay/20 rounded-2xl p-5 glow-tanmay">
+        <p class="text-tanmay font-display font-600 text-sm mb-4">Tanmay Bhatt</p>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">YouTube</span><span class="text-white font-mono text-xs">1.5 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-tanmay rounded-full" style="width:58%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">Instagram</span><span class="text-white font-mono text-xs">2.4 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-tanmay/60 rounded-full" style="width:92%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">Twitter/X</span><span class="text-white font-mono text-xs">0.3 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-tanmay/30 rounded-full" style="width:12%"></div></div>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-border">
+          <p class="text-white/20 text-xs font-mono">Total</p>
+          <p class="text-tanmay text-xl font-display font-700">4.2 M</p>
+        </div>
+      </div>
+      <div class="bg-card border border-ranveer/20 rounded-2xl p-5 glow-ranveer">
+        <p class="text-ranveer font-display font-600 text-sm mb-4">Ranveer Allahbadia</p>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">YouTube</span><span class="text-white font-mono text-xs">9.0 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-ranveer rounded-full" style="width:100%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">Instagram</span><span class="text-white font-mono text-xs">3.6 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-ranveer/60 rounded-full" style="width:40%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">Twitter/X</span><span class="text-white font-mono text-xs">0.4 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-ranveer/30 rounded-full" style="width:4%"></div></div>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-border">
+          <p class="text-white/20 text-xs font-mono">Total</p>
+          <p class="text-ranveer text-xl font-display font-700">13.0 M</p>
+        </div>
+      </div>
+      <div class="bg-card border border-samay/20 rounded-2xl p-5 glow-samay">
+        <p class="text-samay font-display font-600 text-sm mb-4">Samay Raina</p>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">YouTube</span><span class="text-white font-mono text-xs">4.1 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-samay rounded-full" style="width:100%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">Instagram</span><span class="text-white font-mono text-xs">1.9 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-samay/60 rounded-full" style="width:46%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">Twitter/X</span><span class="text-white font-mono text-xs">0.4 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-samay/30 rounded-full" style="width:10%"></div></div>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-border">
+          <p class="text-white/20 text-xs font-mono">Total</p>
+          <p class="text-samay text-xl font-display font-700">6.4 M</p>
+        </div>
+      </div>
+      <div class="bg-card border border-raj/20 rounded-2xl p-5 glow-raj">
+        <p class="text-raj font-display font-600 text-sm mb-4">Raj Shamani</p>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">YouTube</span><span class="text-white font-mono text-xs">3.1 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-raj rounded-full" style="width:100%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">Instagram</span><span class="text-white font-mono text-xs">2.6 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-raj/60 rounded-full" style="width:84%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-white/40 text-xs font-mono">Twitter/X</span><span class="text-white font-mono text-xs">0.3 M</span></div>
+            <div class="h-1.5 bg-white/5 rounded-full"><div class="h-full bg-raj/30 rounded-full" style="width:10%"></div></div>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-border">
+          <p class="text-white/20 text-xs font-mono">Total</p>
+          <p class="text-raj text-xl font-display font-700">6.0 M</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="mt-10 pt-6 border-t border-border fade-up fade-up-5">
+    <p class="text-white/20 text-xs font-mono text-center">Data is estimated based on public sources as of 2024–25 · For informational purposes only</p>
+  </div>
+</div>
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+const chartDefaults = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false } }
+};
+
+// Follower bar chart
+new Chart(document.getElementById('followerChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Tanmay', 'Ranveer', 'Samay', 'Raj'],
+    datasets: [
+      { label: 'YouTube', data: [1.5, 9.0, 4.1, 3.1], backgroundColor: '#a78bfa', borderRadius: 4 },
+      { label: 'Instagram', data: [2.4, 3.6, 1.9, 2.6], backgroundColor: '#34d399', borderRadius: 4 },
+      { label: 'Twitter/X', data: [0.3, 0.4, 0.4, 0.3], backgroundColor: '#38bdf8', borderRadius: 4 }
+    ]
+  },
+  options: {
+    ...chartDefaults,
+    scales: {
+      x: { stacked: true, ticks: { color: 'rgba(255,255,255,0.3)', font: { family: 'Space Mono', size: 10 } }, grid: { color: 'rgba(255,255,255,0.04)' } },
+      y: { stacked: true, ticks: { color: 'rgba(255,255,255,0.3)', font: { family: 'Space Mono', size: 10 } }, grid: { color: 'rgba(255,255,255,0.04)' } }
+    }
+  }
+});
+
+// Radar chart
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ['Reach', 'Engagement', 'Cultural Impact', 'Monetization', 'Controversy', 'Growth'],
+    datasets: [
+      { label: 'Tanmay', data: [42, 70, 80, 65, 55, 50], borderColor: '#a78bfa', backgroundColor: 'rgba(167,139,250,0.1)', pointBackgroundColor: '#a78bfa', borderWidth: 1.5 },
+      { label: 'Ranveer', data: [100, 75, 85, 95, 35, 80], borderColor: '#34d399', backgroundColor: 'rgba(52,211,153,0.1)', pointBackgroundColor: '#34d399', borderWidth: 1.5 },
+      { label: 'Samay', data: [49, 85, 72, 50, 45, 90], borderColor: '#fb923c', backgroundColor: 'rgba(251,146,60,0.1)', pointBackgroundColor: '#fb923c', borderWidth: 1.5 },
+      { label: 'Raj', data: [46, 65, 60, 60, 80, 70], borderColor: '#38bdf8', backgroundColor: 'rgba(56,189,248,0.1)', pointBackgroundColor: '#38bdf8', borderWidth: 1.5 }
+    ]
+  },
+  options: {
+    ...chartDefaults,
+    scales: {
+      r: {
+        min: 0, max: 100,
+        ticks: { display: false },
+        grid: { color: 'rgba(255,255,255,0.06)' },
+        angleLines: { color: 'rgba(255,255,255,0.06)' },
+        pointLabels: { color: 'rgba(255,255,255,0.4)', font: { family: 'Space Mono', size: 9 } }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
